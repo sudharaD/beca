@@ -9,12 +9,12 @@ module.exports = function(app) {
     // ??? getAppointment
     app.get("/appointment/:id", [Auth, Customer], CustomerController.viewAppointmentById);
     app.post("/update_appointment/:id", [Auth, Customer], CustomerController.updateAppointment);
-    app.delete("/delete_appointment", [Auth, Customer], CustomerController.deleteAppointment);
+    app.delete("/delete_appointment/:id", [Auth, Customer], CustomerController.deleteAppointment);
     app.post("/create_vehicle", [Auth, Customer], CustomerController.createVehicle);
     // ??? getVehiclet
     app.get("/vehicle/:id", [Auth, Customer], CustomerController.viewVehicleById);
     app.post("/update_vehicle/:id", [Auth, Customer], CustomerController.updateVehicle);
-    app.delete("/delete_vehicle", [Auth, Customer], CustomerController.deleteVehicle);
+    app.delete("/delete_vehicle/:id", [Auth, Customer], CustomerController.deleteVehicle);
 
 
 };
