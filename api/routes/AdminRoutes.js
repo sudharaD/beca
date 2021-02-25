@@ -5,20 +5,20 @@ module.exports = function(app) {
 
     const AdminController = require("../controllers/AdminController")
     
-    // //Manage service agents
+    //Manage service agents
     app.post("/admin/create-agent",[Auth,Admin],AdminController.createrAgent);
-    app.delete("/admin/delete-agent/:id",[Auth,Admin],AdminController.deleteServiceAgent);
-    // app.get("/superAdmin/view-all-serviceAgents",[Auth,SuperAdmin],Super_admin_controller.getAllServiceAgents);//Worked
+    app.delete("/admin/delete-agent/:id",[Auth,Admin],AdminController.deleteAgent);
+    app.get("/admin/view-all-agents",[Auth,Admin],AdminController.getAllAgents);
     
-    // //Manage all customers
-    // app.get("/superAdmin/view-all-customers",[Auth,SuperAdmin],Super_admin_controller.getAllCustomers);//Worked
-    // app.delete("/superAdmin/delete-customer/:id",[Auth,SuperAdmin],Super_admin_controller.deleteCustomer);//Worked
+    //Manage all customers
+    app.get("/admin/view-all-customers",[Auth,Admin],AdminController.getAllCustomers);
+    app.delete("/admin/delete-customer/:id",[Auth,Admin],AdminController.deleteCustomer);
     
-    // //Manage all vehicles
-    // app.get("/superAdmin/view-all-vehicles",[Auth,SuperAdmin],Super_admin_controller.getAllCustomerVehicles);//Worked
-    // app.delete("/superAdmin/delete-vehicle/:id",[Auth,SuperAdmin],Super_admin_controller.deleteCustomerVehicle);//Worked
+    //Manage all vehicles
+     app.get("/admin/view-all-vehicles",[Auth,Admin],AdminController.getAllCustomerVehicles);
+     app.delete("/admin/delete-vehicle/:id",[Auth,Admin],AdminController.deleteCustomerVehicle);
 
-    // //Manage all vehicle service records
-    // app.get("/superAdmin/view-all-vehicle-service-records",[Auth,SuperAdmin],Super_admin_controller.getAllCustomerVehiclesRecords);//Worked
-    // app.delete("/superAdmin/delete-vehicle-service-record/:id",[Auth,SuperAdmin],Super_admin_controller.deleteCustomerVehicleRecord);//Worked
-};
+    //Manage all vehicle service records
+     app.get("/admin/view-all-service-records",[Auth,Admin],AdminController.getAllCustomerVehiclesRecords);
+     app.delete("/admin/delete-vehicle-service-record/:id",[Auth,Admin],AdminController.deleteCustomerVehicleRecord)
+}

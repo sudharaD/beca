@@ -1,10 +1,8 @@
 const { User } = require("../models/UserModel");
+const UserRole = require('../enums/UserRole');
 
-// const { Admin} = require("../models/");
-// const { ServiceAgent } = require("../models/ServiceAgentModel");
-// const { Customer } = require("../models/CustomerModel");
-// const { Vehicle } = require("../models/VehicleModel");
-// const { ServiceRecord } = require("../models/ServiceRecordModel");
+const { Vehicle } = require("../models/VehicleModel");
+const { ServiceRecord } = require("../models/ServiceRecordModel");
 
 // exports.logOutSuperAdmin = async ( req, res ) => {
 
@@ -41,163 +39,178 @@ exports.createrAgent = async ( req,res ) => {
         
 };
 
-exports.deleteServiceAgent = async ( req, res ) => {
-
+exports.deleteAgent = async ( req, res ) => {
     await User.findById(req.params.id, async function(err, user) {
         if (err) {
             return res.status(422).json({
                 success: false,
-                message: "Invalid Agent id!"
+                message: "Invalid id!"
             });
         }
 
         if(!user) {
             return res.status(422).json({
                 success: false,
-                message: "Invalid Agent id!"
+                message: "Invalid id!"
             });
         }
     });
 
-    await User.remove({_id: req.params.id}, function(err, user) {
+    await User.remove({_id: req.params.id,role:'SERVICE_AGENT'}, function(err, user) {
         if (err) {
             return res.status(422).json({
                 success: false,
-                message: "Invalid user id!"
+                message: "Invalid agent id!"
             });
         }
-
-        return res.status(200).json({
+           return res.status(200).json({
             success: true,
             message: "Agent deleted!"
         });
     });
 }
 
-// exports.getAllAgents = async (req, res) => {
-//     await User.find(function(err, serviceAgents) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Unable to retrive agents!",
-//                 data: err
-//             });
-//         }
+exports.getAllAgents = async (req, res) => {
+    await User.find({ role:'SERVICE_AGENT'},function(err, user) {
+             if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Unable to retrive agents!",
+                data: err
+            });
+        }
     
-//         return res.status(200).json({
-//             success: true,
-//             message: "Received all agents!",
-//             data: serviceAgents
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Received all agents!",
+            data: user
+        });
+    });
+};
 
 //Manage all customers
 
-// exports.getAllCustomers = async (req, res) => {
-//     await Customer.find(function(err, customer) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Unable to retrive customers!",
-//                 data: err
-//             });
-//         }
+exports.getAllCustomers = async (req, res) => {
+    await User.find({ role:'CUSTOMER'},function(err, user) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Unable to retrive customers!",
+                data: err
+            });
+        }
     
-//         return res.status(200).json({
-//             success: true,
-//             message: "Received all customers!",
-//             data: customer
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Received all customers!",
+            data: user
+        });
+    });
+};
 
-// exports.deleteCustomer = async ( req, res ) => {
-//     await Customer.remove({_id: req.params.id}, function(err, customer) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Invalid Customer id!"
-//             });
-//         }
+exports.deleteCustomer = async ( req, res ) => {
+    const id = req.params.id;
+    await User.findById(req.params.id, async function(err, user) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid id!"
+            });
+        }
 
-//         return res.status(200).json({
-//             success: true,
-//             message: "Custoemr is deleted!"
-//         });
-//     });
-// };
+        if(!user) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid id!"
+            });
+        }
+    });
+
+    await User.remove({_id: req.params.id,role:'CUSTOMER'}, function(err, user) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid customer id!"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Customer deleted!"
+        });
+    });
+};
 
 //Manage all vehicles
 
-// exports.getAllCustomerVehicles = async (req, res) => {
-//     await Vehicle.find(function(err, vehicle) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Unable to retrive customers' vehicles!",
-//                 data: err
-//             });
-//         }
+exports.getAllCustomerVehicles = async (req, res) => {
+    await Vehicle.find(function(err, vehicle) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Unable to retrive customers' vehicles!",
+                data: err
+            });
+        }
     
-//         return res.status(200).json({
-//             success: true,
-//             message: "Received all customers' vehicles!",
-//             data: vehicle
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Received all customers' vehicles!",
+            data: vehicle
+        });
+    });
+};
 
-// exports.deleteCustomerVehicle = async ( req, res ) => {
-//     await Vehicle.remove({_id: req.params.id}, function(err, vehicle) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Invalid Vehicle id!"
-//             });
-//         }
+exports.deleteCustomerVehicle = async ( req, res ) => {
+    await Vehicle.remove({_id: req.params.id}, function(err, vehicle) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid Vehicle id!"
+            });
+        }
 
-//         return res.status(200).json({
-//             success: true,
-//             message: "Custoemr Vehicle is deleted!"
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Customer Vehicle is deleted!"
+        });
+    });
+};
 
 //Manage all vehicles service records
 
-// exports.getAllCustomerVehiclesRecords = async (req, res) => {
-//     await ServiceRecord.find(function(err, serviceRecord) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Unable to retrive customers' vehicle records!",
-//                 data: err
-//             });
-//         }
+exports.getAllCustomerVehiclesRecords = async (req, res) => {
+    await ServiceRecord.find(function(err, serviceRecord) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Unable to retrive customers' vehicle records!",
+                data: err
+            });
+        }
     
-//         return res.status(200).json({
-//             success: true,
-//             message: "Received all customer vehicles records!",
-//             data: serviceRecord
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Received all customer vehicles records!",
+            data: serviceRecord
+        });
+    });
+};
 
-// exports.deleteCustomerVehicleRecord = async ( req, res ) => {
-//     await ServiceRecord.remove({_id: req.params.id}, function(err, serviceRecord) {
-//         if (err) {
-//             return res.status(422).json({
-//                 success: false,
-//                 message: "Invalid Vehicle Service record id!"
-//             });
-//         }
+exports.deleteCustomerVehicleRecord = async ( req, res ) => {
+    await ServiceRecord.remove({_id: req.params.id}, function(err, serviceRecord) {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid Vehicle Service record id!"
+            });
+        }
 
-//         return res.status(200).json({
-//             success: true,
-//             message: "Custoemr Vehicle Service Record is deleted!"
-//         });
-//     });
-// };
+        return res.status(200).json({
+            success: true,
+            message: "Custoemr Vehicle Service Record is deleted!"
+        });
+    });
+};
 
 

@@ -61,6 +61,16 @@ exports.loginUser = (req, res) => {
         }
     });
 };
+exports.logOutUser = async ( req, res ) => {
+        req.token=null;
+        res.status(200).json({
+            success: true,
+            message: " Super Admin Successfully Logged Out!",
+            data: {
+                "token": req.token
+            }
+        });
+}
 
 exports.getUserDetails= (req, res) => {
     res.json({status: true, message: "User Received!", data: req.user});
