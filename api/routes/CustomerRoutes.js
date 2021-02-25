@@ -4,10 +4,6 @@ module.exports = function(app) {
 
     const CustomerController = require("../controllers/CustomerController");
 
-    // app.post("/register", AuthController.registerUser);
-    // app.post("/login", AuthController.loginUser);
-    // app.get("/user", Auth, AuthController.getUserDetails);
-
     app.get("/service_record/:id", [Auth, Customer], CustomerController.viewServiceRecordById);
     app.post("/create_appointment", [Auth, Customer], CustomerController.createAppointment);
     // ??? getAppointment
