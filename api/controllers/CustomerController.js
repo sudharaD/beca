@@ -111,6 +111,7 @@ exports.deleteAppointment = async (req, res) => {
         return res.status(422).json({
             success: true,
             message: "Appointment deleted!",
+            data: appointment
         });
     });
 };
