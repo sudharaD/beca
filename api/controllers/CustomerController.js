@@ -1,6 +1,8 @@
 const UserRole = require("../enums/UserRole");
 const { User } = require("../models/UserModel");
 const { ServiceRecord } = require("../models/ServiceRecordModel");
+const { Appointment } = require("../models/AppointmentModel")
+const { Vehicle } = require("../models/VehicleModel")
 
 
 exports.viewServiceRecordById = async (req, res) => {
@@ -28,6 +30,9 @@ exports.viewServiceRecordById = async (req, res) => {
 };
 
 exports.createAppointment = async (req, res) => {
+
+    var newAppointment = new Appointment(req.body);
+    newAppointment.User = req.user_id;
 
     await newAppointment.save((err, appointment) => {
         if (err) {
@@ -111,6 +116,9 @@ exports.deleteAppointment = async (req, res) => {
 };
 
 exports.createVehicle = async (req, res) => {
+
+    var newVehicle = new Vehicle(req.body);
+    newVehicle.User = req.user_id;
 
     await newVehicle.save((err, vehicle) => {
         if (err) {
