@@ -8,5 +8,6 @@ router.get('/', function(req, res){
 require('./AuthRoutes')(router);
 require('./CustomerRoutes')(router);
 require('./ServiceAgentRoutes')(router);
+require('./AdminRoutes')(router);
 
 module.exports.router = router;

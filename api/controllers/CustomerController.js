@@ -46,19 +46,25 @@ exports.createAppointment = async (req, res) => {
     });
 };
 
-exports.getAppointment = async (req, res) => {
-    await Appointment.find(function(err, appointment) {
+exports.viewAppointmentById = async (req, res) => {
+    await Appointment.findById(req.params.id, async function(err, appointment) {
         if (err) {
             return res.status(422).json({
                 success: false,
-                message: "Unable to retrive Appointment!",
-                data: err
+                message: "Invalid appointment id!"
             });
         }
-    
-        return res.status(200).json({
+
+        if(!appointment) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid appointment id!"
+            });
+        }
+
+        return res.status(422).json({
             success: true,
-            message: "Received appointment!",
+            message: "Appointment received!",
             data: appointment
         });
     });
@@ -123,19 +129,25 @@ exports.createVehicle = async (req, res) => {
     });
 };
 
-exports.getVehicle = async (req, res) => {
-    await Vehicle.find(function(err, vehicle) {
+exports.viewVehicleById = async (req, res) => {
+    await Vehicle.findById(req.params.id, async function(err, vehicle) {
         if (err) {
             return res.status(422).json({
                 success: false,
-                message: "Unable to retrive Vehicle!",
-                data: err
+                message: "Invalid vehicle id!"
             });
         }
-    
-        return res.status(200).json({
+
+        if(!vehicle) {
+            return res.status(422).json({
+                success: false,
+                message: "Invalid vehicle id!"
+            });
+        }
+
+        return res.status(422).json({
             success: true,
-            message: "Received Vehicle!",
+            message: "Vehicle received!",
             data: vehicle
         });
     });

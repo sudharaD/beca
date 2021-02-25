@@ -1,6 +1,6 @@
 module.exports = function(app) {
-    const { Auth } = require("../middleware/auth");
-    const { Customer } = require("../middleware/customer");
+    const { Auth } = require("../middlewares/auth");
+    const { Customer } = require("../middlewares/customer");
 
     const CustomerController = require("../controllers/CustomerController");
 
@@ -17,7 +17,7 @@ module.exports = function(app) {
     app.post("/create_vehicle", [Auth, Customer], CustomerController.createVehicle);
     // ??? getVehiclet
     app.get("/vehicle/:id", [Auth, Customer], CustomerController.viewVehicleById);
-    app.post("/update_vehicle/:id", [Auth, Customer], CustomerController.updateServiceRecord);
+    app.post("/update_vehicle/:id", [Auth, Customer], CustomerController.updateVehicle);
     app.delete("/delete_vehicle", [Auth, Customer], CustomerController.deleteVehicle);
 
 

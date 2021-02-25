@@ -1,9 +1,16 @@
 const { User } = require("../models/UserModel");
+const UserRole = require('../enums/UserRole');
 
 exports.registerUser = async (req, res) => {
     const user = new User(req.body);
 
     await user.save((err, doc) => {
+        if (user.role == UserRole.SERVICE_AGENT) {
+            return res.status(403).json({
+                success: false,
+                message: "No authorization to access this route!"
+            });
+        }
         if (err) {
             return res.status(422).json({
                 success: false,
