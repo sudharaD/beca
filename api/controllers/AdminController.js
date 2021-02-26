@@ -3,22 +3,11 @@ const UserRole = require('../enums/UserRole');
 
 const { Vehicle } = require("../models/VehicleModel");
 const { ServiceRecord } = require("../models/ServiceRecordModel");
-
-// exports.logOutSuperAdmin = async ( req, res ) => {
-
-//         req.token=null;
-//         res.status(200).json({
-//             success: true,
-//             message: " Super Admin Successfully Logged Out!",
-//             data: {
-//                 "token": req.token
-//             }
-//         });
-// }
+const { ServiceAgent } = require("../models/ServiceAgentModel");
 
 
 //Manage service agents 
-exports.createrAgent = async ( req,res ) => {
+exports.createAgent = async ( req,res ) => {
 
     const user = new User(req.body);
 
@@ -208,7 +197,8 @@ exports.deleteCustomerVehicleRecord = async ( req, res ) => {
 
         return res.status(200).json({
             success: true,
-            message: "Custoemr Vehicle Service Record is deleted!"
+            message: "Custoemr Vehicle Service Record is deleted!",
+            data: serviceRecord
         });
     });
 };

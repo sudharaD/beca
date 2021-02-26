@@ -6,7 +6,7 @@ module.exports = function(app) {
     const AdminController = require("../controllers/AdminController")
     
     //Manage service agents
-    app.post("/admin/create-agent",[Auth,Admin],AdminController.createrAgent);
+    app.post("/admin/create-agent",[Auth,Admin],AdminController.createAgent);
     app.delete("/admin/delete-agent/:id",[Auth,Admin],AdminController.deleteAgent);
     app.get("/admin/view-all-agents",[Auth,Admin],AdminController.getAllAgents);
     

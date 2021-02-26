@@ -13,7 +13,7 @@ module.exports = function(app) {
    
     // Manage Vehicles
     app.post("/create_vehicle", [Auth, Customer], CustomerController.createVehicle);
-    app.get("/vehicle/:id", [Auth, Customer], CustomerController.viewVehicleById);
+    app.get("/http://localhost:5000/api/v1/create_vehicle/:id", [Auth, Customer], CustomerController.viewVehicleById);
     app.patch("/update_vehicle/:id", [Auth, Customer], CustomerController.updateVehicle);
     app.delete("/delete_vehicle/:id", [Auth, Customer], CustomerController.deleteVehicle);
 

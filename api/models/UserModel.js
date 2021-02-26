@@ -34,10 +34,7 @@ var UserSchema = new Schema({
         enum: UserRole,
         default: UserRole.CUSTOMER
     },
-    // profile_image: {
-    //     type: String,
-    //     required: false
-    // },
+    
     phone_number: {
         type: String,
         required: true
